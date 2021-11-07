@@ -1,0 +1,19 @@
+{
+  "name": "calorie_counter",
+  "version": "1.0.0",
+  "description": "Счётчик калорий",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bohannon-first/calorie_counter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bohannon-first/calorie_counter/issues"
+  },
+  "homepage": "https://github.com/Bohannon-first/calorie_counter#readme"
+}
