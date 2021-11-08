@@ -4,7 +4,8 @@
   "description": "Счётчик калорий",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "browser-sync start --server --files \"js/**/*.js\"",
+    "test": "eslint js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/Bohannon-first/calorie_counter/issues"
   },
-  "homepage": "https://github.com/Bohannon-first/calorie_counter#readme"
+  "homepage": "https://github.com/Bohannon-first/calorie_counter#readme",
+  "devDependencies": {
+    "browser-sync": "^2.27.7",
+    "eslint": "^8.2.0",
+    "eslint-config-htmlacademy": "^4.1.0"
+  }
 }
