@@ -2,9 +2,9 @@
   "name": "calorie_counter",
   "version": "1.0.0",
   "description": "Счётчик калорий",
-  "main": "main.js",
+  "main": "script.js",
   "scripts": {
-    "start": "browser-sync start --server --files \"js/**/*.js\"",
+    "start": "browser-sync start --server --files '*.html, *.css, *.js'",
     "test": "eslint js"
   },
   "repository": {
