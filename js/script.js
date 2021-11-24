@@ -7,7 +7,7 @@ const genders = document.querySelectorAll('input[name=gender]');
 const inputAge = document.getElementById('age');
 const inputHeight = document.getElementById('height');
 const inputWeight = document.getElementById('weight');
-const dataInputs = document.querySelectorAll('input[type=number]');
+const dataInputs = Array.from(document.querySelectorAll('input[type=text]'));
 
 // Выводимые значения
 const popupResult = document.querySelector('.counter__result');
@@ -23,9 +23,6 @@ const buttonReset = document.querySelector('.form__reset-button');
 const inputsActivity = document.querySelectorAll('input[name=activity]');
 const inputActivityMin = document.getElementById('activity-minimal');
 
-// Пустой массив для значений текстовых полей ввода(инпутов)
-let arrayForValueInputs = [];
-
 // Изменение пола
 genders.forEach((gender) => {
   gender.addEventListener('change', () => {
@@ -33,30 +30,39 @@ genders.forEach((gender) => {
   });
 });
 
-// Проверка на заполненность всех полей ввода
-for (const input of dataInputs) {
-  input.addEventListener('change', () => {
-    const expression = /^0|\.|\d{4,}/gm; // Регулярное выражение
-    if (input.value !== '' && input.value > 0 && !expression.test(input.value)) {
-      arrayForValueInputs.push(input.value);
-      if (arrayForValueInputs.length >= 3) {
-        buttonCalculate.removeAttribute('disabled');
-      }
-    } else {
-      arrayForValueInputs.pop();
-      buttonCalculate.setAttribute('disabled', '');
-    }
-  });
-}
+// Регулярное выражение
+const notNumbers = /^0|[^0-9]/;
 
-// Обработчик кнопки "Очистить поля и расчёт"
+// Проверка инпутов на наличие значений
+const checkInputs = () => {
+  // Появление кнопки "Рассчитать"
+  const emptyInputs = dataInputs.filter((input) => input.value === '').length;
+  if (emptyInputs) {
+    buttonCalculate.disabled = true;
+  } else {
+    buttonCalculate.disabled = false;
+  }
+  // Появление кнопки "Очистить поля и расчёт"
+  const notEmptyInputs = dataInputs.filter((input) => input.value !== '').length;
+  if (notEmptyInputs) {
+    buttonReset.disabled = false;
+  } else {
+    buttonReset.disabled = true;
+  }
+};
+
+// Добавление обработчиков событий input на поля ввода
 dataInputs.forEach((input) => {
   input.addEventListener('input', () => {
-    if (input.value !== '') {
-      buttonReset.disabled = false;
-    }
+    formatInput(input);
+    checkInputs();
   });
 });
+
+// Форматирование не числовых значений
+const formatInput = (input) => {
+  input.value = input.value.replace(notNumbers, '');
+};
 
 // Массив с данными о физической активности
 const listActivity = [
@@ -113,7 +119,6 @@ buttonReset.addEventListener('click', (evt) => {
   dataInputs.forEach((input) => input.value = '');
   inputsActivity.forEach((input) => input.checked = false);
   inputActivityMin.checked = true;
-  arrayForValueInputs = [];
   buttonCalculate.disabled = true;
   buttonReset.disabled = true;
   popupResult.classList.add('counter__result--hidden');
