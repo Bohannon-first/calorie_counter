@@ -30,8 +30,9 @@ genders.forEach((gender) => {
   });
 });
 
-// Регулярное выражение
+// Регулярные выражения
 const notNumbers = /^0|[^0-9]/;
+const outputTemplateNumbers = /(\d)(?=(\d{3})+(?!\d))/g;
 
 // Проверка инпутов на наличие значений
 const checkInputs = () => {
@@ -63,6 +64,9 @@ dataInputs.forEach((input) => {
 const formatInput = (input) => {
   input.value = input.value.replace(notNumbers, '');
 };
+
+// Форматирование числовых значений
+const formatNumber = (num) => num.toString().replace(outputTemplateNumbers, '$1 ');
 
 // Массив с данными о физической активности
 const listActivity = [
@@ -139,7 +143,7 @@ const calculation = (age = 0, height = 0, weight = 0, ratioActivity = 1.2) => {
     reduceWeight = normalWeight - (normalWeight * 15 / 100);
     increaseWeight = normalWeight + (normalWeight * 15 / 100);
   }
-  caloriesNormal.textContent = `${Math.round(normalWeight)}`;
-  caloriesMinimal.textContent = `${Math.round(reduceWeight)}`;
-  caloriesMaximal.textContent = `${Math.round(increaseWeight)}`;
+  caloriesNormal.textContent = `${formatNumber(Math.round(normalWeight))}`;
+  caloriesMinimal.textContent = `${formatNumber(Math.round(reduceWeight))}`;
+  caloriesMaximal.textContent = `${formatNumber(Math.round(increaseWeight))}`;
 };
